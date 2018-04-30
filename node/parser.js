@@ -1,6 +1,18 @@
 module.exports = {
-	difficulty: ( s ) => s.replace( "Difficulty: ", "" ),
-	tuning: ( s ) => s.split( " " ),
+	difficulty: function( s ) {
+		if ( !s || !/.*?difficulty:/i.test( s ) ) {
+			return "unknown";
+		}
+
+		return s.replace( "Difficulty: ", "" );
+	},
+	tuning: function( s ) {
+		if ( !s ) {
+			return [ "E", "A", "D", "G", "B", "E" ];
+		}
+		
+		return s.split( " " );
+	},
 	tabs: function( content ) {
 		return parse( content );
 	}
