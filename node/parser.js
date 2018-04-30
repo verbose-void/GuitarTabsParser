@@ -82,7 +82,7 @@ function parseSection( section, content ) {
 						}
 
 						if ( character && character !== "-" ) {
-							step["finger_" + ( j - i + 1 )] = character;
+							step["string_" + ( j - i + 1 )] = character;
 							count ++;
 						}
 					}
