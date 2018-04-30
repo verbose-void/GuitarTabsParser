@@ -8,7 +8,7 @@ const parser = require( "./parser" );
 
 	let difficulty = parser.difficulty( await page.evaluate( () => document.querySelector( "div._3JgI9" ).textContent ) );
 	let tuning = parser.tuning( await page.evaluate( () => document.querySelector( "#tuning" ).textContent ) );
-	let tabs = parser.tabs( await page.evaluate( () => document.querySelector( "pre._1YgOS" ).textContent ) );
+	let tabs = parser.tabs( await page.evaluate( () => window.UGAPP.store.page.data["tab_view"]["wiki_tab"].content ) );
 
 	console.log( difficulty, tuning );
 	for ( let sec in tabs.sections ) {
