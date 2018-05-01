@@ -1,8 +1,6 @@
 const pupp = require( "puppeteer" );
 const parser = require( "./parser" );
 
-getSong( "https://tabs.ultimate-guitar.com/tab/zac_brown_band/chicken_fried_tabs_761400", ( song ) => console.log( song ) );
-
 async function getSong( url, callback ) {
 	const browser = await pupp.launch();
 	const page = await browser.newPage();
