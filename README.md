@@ -6,7 +6,8 @@
   "tab_url": "https://www.ultimate-guitar.com/",
   "difficulty": "beginner",
   "tuning": [ "E", "A", "D", "G", "B", "E" ],
-  "tabs": {
+  "raw_tabs": "...",
+  "parsed_tabs": {
     "order": [ "Chorus", "Verse 1", "Verse 2" ],
     "sections": {
       "Chorus": {
