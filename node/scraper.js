@@ -28,13 +28,12 @@ const parser = require( "./parser" );
 				tab_url: tab.tab_url,
 				difficulty: difficulty,
 				tuning: tuning,
-				tabs: tab_view.wiki_tab.content
+				raw_tabs: tab_view.wiki_tab.content
 			}
 		} );
-	song.tabs = parser.tabs( song.tabs );
+	song.parsed_tabs = parser.tabs( song.raw_tabs );
 
 	console.log( song );
-	console.log( JSON.stringify( song.tabs.sections["Verse 1"].measures[0] ) );
 	browser.close();
 } )();
 
