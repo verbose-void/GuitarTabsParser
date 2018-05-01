@@ -1,18 +1,4 @@
 module.exports = {
-	difficulty: function( s ) {
-		if ( !s || !/.*?difficulty:/i.test( s ) ) {
-			return "unknown";
-		}
-
-		return s.replace( "Difficulty: ", "" );
-	},
-	tuning: function( s ) {
-		if ( !s ) {
-			return [ "E", "A", "D", "G", "B", "E" ];
-		}
-		
-		return s.split( " " );
-	},
 	tabs: function( content ) {
 		return parse( content );
 	}
@@ -94,16 +80,8 @@ function parseSection( section, content ) {
 						}
 
 						if ( character && character !== "-" ) {
-							step["string_" + ( j - i + 1 )] = character;
+							step["string_" + ( 6 - ( j - i ) )] = character;
 							count ++;
-						}
-					}
-
-					if ( previous && previous.length >= c ) {
-						let s = previous.substring( c, c + 1 ).replace( /\s/gm, "" );
-
-						if ( s.length > 0 ) {
-							step.chord = s;
 						}
 					}
 
