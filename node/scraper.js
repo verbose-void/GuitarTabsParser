@@ -39,3 +39,6 @@ async function getSong( url, callback ) {
 	callback( song );
 };
 
+module.exports = {
+	getSong: getSong
+};
