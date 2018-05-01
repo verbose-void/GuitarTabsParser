@@ -1,10 +1,12 @@
 const pupp = require( "puppeteer" );
 const parser = require( "./parser" );
 
-( async() => {
+getSong( "https://tabs.ultimate-guitar.com/tab/zac_brown_band/chicken_fried_tabs_761400", ( song ) => console.log( song ) );
+
+async function getSong( url, callback ) {
 	const browser = await pupp.launch();
 	const page = await browser.newPage();
-	await page.goto( "https://tabs.ultimate-guitar.com/tab/zac_brown_band/chicken_fried_tabs_761400" );
+	await page.goto( url );
 
 	let song = await page.evaluate( () => { 
 			let tab_view = window.UGAPP.store.page.data.tab_view;
@@ -31,9 +33,9 @@ const parser = require( "./parser" );
 				raw_tabs: tab_view.wiki_tab.content
 			}
 		} );
-	song.parsed_tabs = parser.tabs( song.raw_tabs );
 
-	console.log( song );
+	song.parsed_tabs = parser.tabs( song.raw_tabs );
 	browser.close();
-} )();
+	callback( song );
+};
 
