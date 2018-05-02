@@ -1,0 +1,38 @@
+.query-input {
+	transition: 0.5s ease-in-out;
+	width: 80%;
+	height: 80px;
+	margin: auto;
+	font-size: 36px;
+	font-family: arial;
+	border: 2px solid #dadada;
+    border-radius: 7px;
+	padding: 0px 12px;
+	text-align: center;
+}
+
+.query-input:hover {
+	width: 90%;
+}
+
+.query-input:focus {
+	width: 90%;
+	outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+
+.query-header {
+	font-family: helvetica;
+	text-align: center;
+	font-size: 48px;
+	color: #b7b7b7;
+}
+
+.form {
+	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 40%;
+}
