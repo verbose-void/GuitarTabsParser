@@ -1,6 +1,7 @@
 .query-input {
 	transition: 0.5s ease-in-out;
 	width: 80%;
+	min-width: 300px;
 	height: 80px;
 	margin: auto;
 	font-size: 36px;
