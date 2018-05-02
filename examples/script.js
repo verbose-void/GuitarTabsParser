@@ -2,6 +2,7 @@ var inputElement = document.getElementsByClassName( "query-input" )[0];
 var dropDown = document.getElementById( "dd" );
 
 inputElement.addEventListener( "input", function( e ) {
+    console.log( "input" );
     if ( e.srcElement.value.length < 1 ) {
         clearDropDown();
         dropDown.classList.remove( "show" );
@@ -15,7 +16,11 @@ inputElement.addEventListener( "input", function( e ) {
 } );
 
 inputElement.addEventListener( "focus", function() {
-    dropDown.classList.add( "show" );
+    if ( document.activeElement === inputElement ) {
+        if ( dropDown.firstChild ) {
+            dropDown.classList.add( "show" );
+        }
+    }
 } );
 
 function clearDropDown() {
