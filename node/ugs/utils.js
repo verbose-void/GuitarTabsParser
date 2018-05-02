@@ -182,7 +182,7 @@ function formatSearchQuery (query) {
     if (acceptedParams.indexOf(underscored) !== -1) {
       params[underscored] = query[param]
     } else {
-      throw new Error("Unknown param '" + underscored + "'. Accepted params are: '" + acceptedParams.join("', '") + "'.")
+      delete query[param];
     }
   }
   // required params
