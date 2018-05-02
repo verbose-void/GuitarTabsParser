@@ -22,6 +22,13 @@ http.createServer( function( request, response ) {
 		if ( formatted.args.query ) {
 			index.search( formatted.args, function( a, b ) {
 				if ( !a && b ) {
+					if ( Array.isArray( b ) ) {
+						b = b.sort( function( elem1, elem2 ) {
+							return ( elem2.rating * elem2.numberRates ) - ( elem1.rating * elem1.numberRates );
+						} );
+					}
+
+
 					response.write( JSON.stringify( b ) );
 				}
 
