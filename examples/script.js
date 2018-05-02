@@ -22,9 +22,16 @@ inputElement.addEventListener( "focus", function() {
     }
 } );
 
+inputElement.addEventListener( "keydown", function( e ) {
+    if ( e.keyCode === 13 ) {
+        getQuery( inputElement.value );
+    }
+} );
+
 dropDown.addEventListener( "click", function( e ) {
     inputElement.value = e.srcElement.innerText;
     dropDown.classList.remove( "show" );
+    getQuery( inputElement.value );
 } );
 
 function clearDropDown() {
@@ -43,6 +50,15 @@ function updateDropDown( suggestions ) {
         a.classList.add( "dropbtn" );
         dropDown.appendChild( a );
     }
+}
+
+function getQuery( query, callback ) {
+    let client = new HttpClient();
+    client.get( "http://localhost:8080/query?query=" + encodeURIComponent( query ), function( res ) {
+        if ( res ) {
+            console.log( JSON.parse( res ) );
+        }
+    } );
 }
 
 function getAutoComplete( string, callback ) {
