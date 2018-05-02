@@ -4,13 +4,20 @@ const parser = require( "./parser" );
 async function getSong( url, callback ) {
 	const browser = await pupp.launch();
 	const page = await browser.newPage();
+	
 	await page.goto( url );
 
 	let song = await page.evaluate( () => { 
 			let tab_view = window.UGAPP.store.page.data.tab_view;
 			let tab = window.UGAPP.store.page.data.tab;
-			let tuning = tab_view.meta.tuning;
-			let difficulty = tab_view.meta.difficulty;
+
+			let tuning;
+			let difficulty;
+
+			if ( tab_view && tab_view.meta ) {
+				tuning = tab_view.meta.tuning;
+				difficulty = tab_view.meta.difficulty;
+			}
 
 			if  ( !tuning ) {
 				tuning = [ "E", "A", "D", "G", "B", "E" ];
@@ -20,6 +27,10 @@ async function getSong( url, callback ) {
 
 			if ( !difficulty ) {
 				difficulty = "unknown";
+			}
+
+			if ( !tab ) {
+				return {};
 			}
 
 			return {
@@ -32,7 +43,10 @@ async function getSong( url, callback ) {
 			}
 		} );
 
-	song.parsed_tabs = parser.tabs( song.raw_tabs );
+	if ( song.raw_tabs ) {
+		song.parsed_tabs = parser.tabs( song.raw_tabs );
+	}
+
 	browser.close();
 	callback( song );
 };
