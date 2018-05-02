@@ -1,5 +1,5 @@
 #results {
-	top: 250px;
+	top: 350px;
 	left: 0px;
 	position: absolute;
 	width: 100%;
@@ -67,8 +67,9 @@
 .query-header {
 	font-family: helvetica;
 	text-align: center;
-	font-size: 48px;
+	font-size: 80px;
 	color: #b7b7b7;
+	white-space: nowrap;
 }
 
 .form {
