@@ -7,13 +7,17 @@ http.createServer( function( request, response ) {
 	response.writeHead( 200, { 'Content-Type': 'text/html', 'Access-Control-Allow-Origin': '*' } ); // TODO add specific source
 
 	if ( formatted.type.toLowerCase() === "autocomplete" ) {
-		index.autocomplete( formatted.args.text, function( a, b ) {
-			if ( !a && b && b.length > 0 ) {
-				response.write( JSON.stringify( b ) )
-			}
+		if ( formatted.args.text ) {
+			index.autocomplete( formatted.args.text, function( a, b ) {
+				if ( !a && b && b.length > 0 ) {
+					response.write( JSON.stringify( b ) )
+				}
 
+				response.end();
+			} );
+		} else {
 			response.end();
-		} );
+		}
 	} else if ( formatted.type.toLowerCase() === "query" ) {
 		if ( formatted.args.query ) {
 			index.search( formatted.args, function( a, b ) {
