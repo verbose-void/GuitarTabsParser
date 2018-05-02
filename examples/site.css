@@ -11,10 +11,6 @@
 	text-align: center;
 }
 
-.query-input:hover {
-	width: 90%;
-}
-
 .query-input:focus {
 	width: 90%;
 	outline: none;
