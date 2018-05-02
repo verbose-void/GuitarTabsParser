@@ -36,6 +36,7 @@ function updateDropDown( suggestions ) {
     for ( let i = 0; i < loopValue; i++ ) {
         let a = document.createElement( "A" );
         a.appendChild( document.createTextNode( suggestions[i] ) );
+        a.classList.add( "dropbtn" );
         dropDown.appendChild( a );
     }
 }
