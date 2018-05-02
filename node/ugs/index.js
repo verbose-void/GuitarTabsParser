@@ -21,7 +21,7 @@ function autocomplete (query, callback, requestOptions) {
   requestOptions = requestOptions || {}
   query = query.toLowerCase()
   const letter = query[0]
-  requestOptions.url = 'https://www.ultimate-guitar.com/static/article/suggestions/' + letter + '/' + query + '.js'
+  requestOptions.url = 'https://www.ultimate-guitar.com/static/article/suggestions/' + letter + '/' + encodeURIComponent( query ) + '.js'
   request(requestOptions, (error, response, body) => {
     if (error) {
       callback(error, null, response, body)
