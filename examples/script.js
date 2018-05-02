@@ -27,6 +27,7 @@ inputElement.addEventListener( "keydown", function( e ) {
     if ( e.keyCode === 13 ) {
         getQuery( inputElement.value );
         updateResults();
+        dropDown.classList.remove( "show" );
     }
 } );
 
