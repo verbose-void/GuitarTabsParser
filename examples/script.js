@@ -15,6 +15,7 @@ function onResultsClick( e ) {
     }
 
     console.log( clicked );
+    // TODO fade away meta and title & display ability to go to source & to view the custom song view.
 }
 
 results.addEventListener( "click", onResultsClick );
