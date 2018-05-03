@@ -1,6 +1,23 @@
-var inputElement = document.getElementsByClassName( "query-input" )[0];
-var dropDown = document.getElementById( "dd" );
-var results = document.getElementById( "results" );
+const inputElement = document.getElementsByClassName( "query-input" )[0];
+const dropDown = document.getElementById( "dd" );
+const results = document.getElementById( "results" );
+const loader = document.getElementsByClassName( "loader" )[0];
+
+function onResultsClick( e ) {
+    let clicked = e.target;
+    if ( clicked && clicked === results ) {
+        return;
+    }
+
+    if ( clicked.tagName.toLowerCase() !== "li" ) {
+        onResultsClick( { target: clicked.parentElement } );
+        return;
+    }
+
+    console.log( clicked );
+}
+
+results.addEventListener( "click", onResultsClick );
 
 inputElement.addEventListener( "input", function( e ) {
     if ( e.srcElement.value.length < 1 ) {
@@ -26,7 +43,6 @@ inputElement.addEventListener( "focus", function() {
 inputElement.addEventListener( "keydown", function( e ) {
     if ( e.keyCode === 13 ) {
         getQuery( inputElement.value );
-        updateResults();
         dropDown.classList.remove( "show" );
     }
 } );
@@ -55,6 +71,8 @@ function updateResults( res ) {
     while ( results.firstChild ) {
         results.removeChild( results.firstChild );
     }
+
+    loader.classList.remove( "show" );
 
     let result;
     let rsheader;
@@ -111,7 +129,12 @@ function updateDropDown( suggestions ) {
     }
 }
 
-function getQuery( query, callback ) {
+function getQuery( query ) {
+    while ( results.firstChild ) {
+        results.removeChild( results.firstChild );
+    }
+    loader.classList.add( "show" );
+
     let client = new HttpClient();
     client.get( "http://localhost:8080/query?query=" + encodeURIComponent( query ), function( res ) {
         if ( res ) {
