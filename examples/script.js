@@ -14,8 +14,16 @@ function onResultsClick( e ) {
         return;
     }
 
-    console.log( clicked );
+    let header = clicked.children[0];
+    let meta = clicked.children[1];
     // TODO fade away meta and title & display ability to go to source & to view the custom song view.
+    if ( header.classList.contains( "hide" ) ) {
+        header.classList.remove( "hide" );
+        meta.classList.remove( "hide" );
+    } else {
+        header.classList.add( "hide" );
+        meta.classList.add( "hide" );
+    }
 }
 
 results.addEventListener( "click", onResultsClick );
@@ -81,16 +89,21 @@ function updateResults( res ) {
     let resultrating;
     let resultrates;
     let current;
+    let rsheaderDiv;
 
     for ( let i = 0; i < res.length; i++ ) {
         current = res[i];
+
 
         result = document.createElement( "LI" );
         result.classList.add( "result" );
         rsheader = document.createElement( "a" );
         rsheader.appendChild( document.createTextNode( current.name + " - " + current.artist ) );
         rsheader.classList.add( "result-header" );
-        result.appendChild( rsheader );
+        rsheaderDiv = document.createElement( "div" );
+        rsheaderDiv.classList.add( "result-header-container" );
+        rsheaderDiv.appendChild( rsheader );
+        result.appendChild( rsheaderDiv );
         resultmeta = document.createElement( "DIV" );
         resultmeta.classList.add( "result-meta" );
         resultrating = document.createElement( "STRONG" );

@@ -9,7 +9,8 @@
 }
 
 .result {
-	transition: 0.2s ease-in-out;
+	overflow: hidden;
+	transition: 0.2s linear;
 	list-style-type: none;
 	padding: 10px;
 	cursor: pointer;
@@ -19,19 +20,17 @@
 }
 
 .result-meta {
+	transition: 0.1s ease-in;
 	color: #494949;
 }
 
 .result-header {
 	font-weight: bold;
+	font-size: 32px;
 }
 
 .result:hover {
 	background: lightgrey;
-}
-
-.result-header {
-	font-size: 32px;
 }
 
 .result-original {
@@ -123,6 +122,20 @@
 
 .show {
 	display: block;
+}
+
+.result-meta.hide {
+	transform: translate( 0px, 50px );
+	opacity: 0;
+}
+
+.result-header-container {
+	transition: 0.1s ease-in;
+}
+
+.result-header-container.hide {
+	transform: translate( 0px, -50px );
+	opacity: 0;
 }
 
 .loader {
