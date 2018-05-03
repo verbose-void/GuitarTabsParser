@@ -28,14 +28,14 @@ inputElement.addEventListener( "input", function( e ) {
 
 	getAutoComplete( e.srcElement.value, function( x ) {
         updateDropDown( x );
-        dropDown.classList.add( "show" );
+        showDropDown();
     } );
 } );
 
 inputElement.addEventListener( "focus", function() {
     if ( document.activeElement === inputElement ) {
         if ( dropDown.firstChild ) {
-            dropDown.classList.add( "show" );
+            showDropDown();
         }
     }
 } );
@@ -171,9 +171,15 @@ window.onclick = function( event ) {
     var i;
     for (i = 0; i < dropdowns.length; i++) {
         var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
+        if ( openDropdown.classList.contains('show') ) {
             openDropdown.classList.remove('show');
         }
     }
   }
+}
+
+function showDropDown() {
+    if ( !loader.classList.contains( "show" ) ) {
+        dropDown.classList.add('show');
+    }
 }
