@@ -2,6 +2,7 @@ const inputElement = document.getElementsByClassName( "query-input" )[0];
 const dropDown = document.getElementById( "dd" );
 const results = document.getElementById( "results" );
 const loader = document.getElementsByClassName( "loader" )[0];
+let currentSelection;
 
 function onResultsClick( e ) {
     let clicked = e.target;
@@ -14,15 +15,20 @@ function onResultsClick( e ) {
         return;
     }
 
-    let header = clicked.children[0];
-    let meta = clicked.children[1];
-    // TODO fade away meta and title & display ability to go to source & to view the custom song view.
-    if ( header.classList.contains( "hide" ) ) {
-        header.classList.remove( "hide" );
-        meta.classList.remove( "hide" );
-    } else {
-        header.classList.add( "hide" );
-        meta.classList.add( "hide" );
+    selectResult( clicked );
+}
+
+function selectResult( selection ) {
+    deselectResult( currentSelection );
+    currentSelection = selection;
+    selection.children[0].classList.add( "hide" );
+    selection.children[1].classList.add( "hide" );
+}
+
+function deselectResult( selection ) {
+    if ( selection ) {
+        selection.children[0].classList.remove( "hide" );
+        selection.children[1].classList.remove( "hide" );
     }
 }
 
@@ -190,6 +196,22 @@ window.onclick = function( event ) {
         }
     }
   }
+  let li = !getParentResult( event.target );
+
+  if ( li ) {
+    deselectResult( currentSelection );
+  }
+}
+
+function getParentResult( elem ) {
+    if ( elem.tagName.toLowerCase() === "li" ) {
+        return elem;
+    }
+
+    if ( !elem.parentElement ) {
+        return null;
+    }
+    return getParentResult( elem.parentElement );
 }
 
 function showDropDown() {
