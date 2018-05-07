@@ -1,6 +1,38 @@
-var inputElement = document.getElementsByClassName( "query-input" )[0];
-var dropDown = document.getElementById( "dd" );
-var results = document.getElementById( "results" );
+const inputElement = document.getElementsByClassName( "query-input" )[0];
+const dropDown = document.getElementById( "dd" );
+const results = document.getElementById( "results" );
+const loader = document.getElementsByClassName( "loader" )[0];
+let currentSelection;
+
+function onResultsClick( e ) {
+    let clicked = e.target;
+    if ( clicked && clicked === results ) {
+        return;
+    }
+
+    if ( clicked.tagName.toLowerCase() !== "li" ) {
+        onResultsClick( { target: clicked.parentElement } );
+        return;
+    }
+
+    selectResult( clicked );
+}
+
+function selectResult( selection ) {
+    deselectResult( currentSelection );
+    currentSelection = selection;
+    selection.children[0].classList.add( "hide" );
+    selection.children[1].classList.add( "hide" );
+}
+
+function deselectResult( selection ) {
+    if ( selection ) {
+        selection.children[0].classList.remove( "hide" );
+        selection.children[1].classList.remove( "hide" );
+    }
+}
+
+results.addEventListener( "click", onResultsClick );
 
 inputElement.addEventListener( "input", function( e ) {
     if ( e.srcElement.value.length < 1 ) {
@@ -11,14 +43,14 @@ inputElement.addEventListener( "input", function( e ) {
 
 	getAutoComplete( e.srcElement.value, function( x ) {
         updateDropDown( x );
-        dropDown.classList.add( "show" );
+        showDropDown();
     } );
 } );
 
 inputElement.addEventListener( "focus", function() {
     if ( document.activeElement === inputElement ) {
         if ( dropDown.firstChild ) {
-            dropDown.classList.add( "show" );
+            showDropDown();
         }
     }
 } );
@@ -26,7 +58,6 @@ inputElement.addEventListener( "focus", function() {
 inputElement.addEventListener( "keydown", function( e ) {
     if ( e.keyCode === 13 ) {
         getQuery( inputElement.value );
-        updateResults();
         dropDown.classList.remove( "show" );
     }
 } );
@@ -56,22 +87,29 @@ function updateResults( res ) {
         results.removeChild( results.firstChild );
     }
 
+    loader.classList.remove( "show" );
+
     let result;
     let rsheader;
     let resultmeta;
     let resultrating;
     let resultrates;
     let current;
+    let rsheaderDiv;
 
     for ( let i = 0; i < res.length; i++ ) {
         current = res[i];
+
 
         result = document.createElement( "LI" );
         result.classList.add( "result" );
         rsheader = document.createElement( "a" );
         rsheader.appendChild( document.createTextNode( current.name + " - " + current.artist ) );
         rsheader.classList.add( "result-header" );
-        result.appendChild( rsheader );
+        rsheaderDiv = document.createElement( "div" );
+        rsheaderDiv.classList.add( "result-header-container" );
+        rsheaderDiv.appendChild( rsheader );
+        result.appendChild( rsheaderDiv );
         resultmeta = document.createElement( "DIV" );
         resultmeta.classList.add( "result-meta" );
         resultrating = document.createElement( "STRONG" );
@@ -111,7 +149,12 @@ function updateDropDown( suggestions ) {
     }
 }
 
-function getQuery( query, callback ) {
+function getQuery( query ) {
+    while ( results.firstChild ) {
+        results.removeChild( results.firstChild );
+    }
+    loader.classList.add( "show" );
+
     let client = new HttpClient();
     client.get( "http://localhost:8080/query?query=" + encodeURIComponent( query ), function( res ) {
         if ( res ) {
@@ -149,9 +192,31 @@ window.onclick = function( event ) {
     var i;
     for (i = 0; i < dropdowns.length; i++) {
         var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
+        if ( openDropdown.classList.contains('show') ) {
             openDropdown.classList.remove('show');
         }
     }
   }
+  let li = !getParentResult( event.target );
+
+  if ( li ) {
+    deselectResult( currentSelection );
+  }
+}
+
+function getParentResult( elem ) {
+    if ( elem.tagName.toLowerCase() === "li" ) {
+        return elem;
+    }
+
+    if ( !elem.parentElement ) {
+        return null;
+    }
+    return getParentResult( elem.parentElement );
+}
+
+function showDropDown() {
+    if ( !loader.classList.contains( "show" ) ) {
+        dropDown.classList.add('show');
+    }
 }
