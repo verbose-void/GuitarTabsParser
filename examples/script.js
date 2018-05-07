@@ -121,6 +121,10 @@ function getQuery( query, callback ) {
 }
 
 function getAutoComplete( string, callback ) {
+    if ( string.length > 5 ) {
+        return;
+    }
+    string = string.replace( " ", "_" );
 	let client = new HttpClient();
 	client.get( "http://localhost:8080/autocomplete?text=" + encodeURIComponent( string ), function( res ) {
         if ( res ) {
