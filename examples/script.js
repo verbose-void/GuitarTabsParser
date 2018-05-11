@@ -103,7 +103,6 @@ function updateResults( res ) {
     for ( let i = 0; i < res.length; i++ ) {
         current = res[i];
 
-<<<<<<< HEAD
         clickOptionsDiv = document.createElement( "DIV" );
         clickOptionsDiv.classList.add( "click-options" );
 
@@ -120,8 +119,6 @@ function updateResults( res ) {
         clickOptionsDiv.appendChild( parsedLink );
         clickOptionsDiv.appendChild( originalLink );
 
-=======
->>>>>>> c1d959be18fc024776932024e9ca7b7435345120
         result = document.createElement( "LI" );
         result.classList.add( "result" );
         rsheader = document.createElement( "a" );
