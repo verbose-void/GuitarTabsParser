@@ -17,6 +17,8 @@
               {
                 "string_1": "3",
                 "string_2": "2",
+                "string_3": "0",
+                "string_4": "0",
                 "string_5": "3",
                 "string_6": "3",
                 "chord": "G"

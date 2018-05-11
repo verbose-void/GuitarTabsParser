@@ -103,6 +103,7 @@ function updateResults( res ) {
     for ( let i = 0; i < res.length; i++ ) {
         current = res[i];
 
+<<<<<<< HEAD
         clickOptionsDiv = document.createElement( "DIV" );
         clickOptionsDiv.classList.add( "click-options" );
 
@@ -119,6 +120,8 @@ function updateResults( res ) {
         clickOptionsDiv.appendChild( parsedLink );
         clickOptionsDiv.appendChild( originalLink );
 
+=======
+>>>>>>> c1d959be18fc024776932024e9ca7b7435345120
         result = document.createElement( "LI" );
         result.classList.add( "result" );
         rsheader = document.createElement( "a" );
@@ -144,16 +147,6 @@ function updateResults( res ) {
 
         results.appendChild( result );
     }
-
-    /*
-                <li class="result">
-                    <a class="result-header">Song Name - Artist Name</a>
-                    <div class="result-meta">
-                        <strong class="result-rating">Rating: 4.5</strong>
-                        <strong class="result-rates">200 rates.</strong>
-                    </div>
-                </li>
-    */
 }
 
 function updateDropDown( suggestions ) {
@@ -183,6 +176,7 @@ function getQuery( query ) {
 }
 
 function getAutoComplete( string, callback ) {
+    string = string.slice( 0, 4 ).replace( " ", "_" );
 	let client = new HttpClient();
 	client.get( "http://localhost:8080/autocomplete?text=" + encodeURIComponent( string ), function( res ) {
         if ( res ) {
