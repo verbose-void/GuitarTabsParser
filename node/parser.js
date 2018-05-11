@@ -35,7 +35,11 @@ function parse( content ) {
 
 function parseSection( section, content ) {
 	let re = new RegExp( "\\[" + section + "\\].*([^\\0]*?)(?:\\[|\\*{36})", "i" );
-	let inner = re.exec( content )[1];
+	let temp = re.exec( content );
+	if ( !temp ) {
+		return;
+	}
+	let inner = temp[1];
 
 	inner = inner.split( "\n" );
 

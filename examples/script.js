@@ -99,6 +99,7 @@ function updateResults( res ) {
     let clickOptionsDiv;
     let originalLink;
     let parsedLink;
+    let searchData;
 
     for ( let i = 0; i < res.length; i++ ) {
         current = res[i];
@@ -109,7 +110,8 @@ function updateResults( res ) {
         parsedLink = document.createElement( "A" );
         parsedLink.textContent = "Formatted";
         // TODO add HREF
-        parsedLink.href = "formatted.html" + current.url.replace( "https://tabs.ultimate-guitar.com", "" );
+        searchData = current.url.replace( "https://tabs.ultimate-guitar.com/tab/", "" ).split( "/" );
+        parsedLink.href = "formatted.html#parse?artist=" + searchData[0] + "&song_identifier=" + searchData[1];
 
         originalLink = document.createElement( "A" );
         originalLink.href = current.url;

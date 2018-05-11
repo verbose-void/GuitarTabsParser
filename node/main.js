@@ -20,6 +20,7 @@ http.createServer( function( request, response ) {
 		}
 	} else if ( formatted.type.toLowerCase() === "query" ) {
 		if ( formatted.args.query ) {
+			formatted.args.type = "Tab"; // TODO make parser compatible with Chords types as well.
 			index.search( formatted.args, function( a, b ) {
 				if ( !a && b ) {
 					if ( Array.isArray( b ) ) {
@@ -41,7 +42,7 @@ http.createServer( function( request, response ) {
 		let args = formatted.args;
 
 		if ( args && args.artist && args.song_identifier ) {
-			scraper.getSong( "https://tabs.ultimate-guitar.com/tab/" + formatTabLink( args.artist ) + "/" + formatTabLink( args.song_identifier ), function( song ) {
+			scraper.getSong( "https://tabs.ultimate-guitar.com/tab/" + args.artist + "/" + args.song_identifier, function( song ) {
 				response.write( JSON.stringify( song.parsed_tabs ) );
 				response.end();
 			} );
