@@ -96,10 +96,28 @@ function updateResults( res ) {
     let resultrates;
     let current;
     let rsheaderDiv;
+    let clickOptionsDiv;
+    let originalLink;
+    let parsedLink;
 
     for ( let i = 0; i < res.length; i++ ) {
         current = res[i];
 
+        clickOptionsDiv = document.createElement( "DIV" );
+        clickOptionsDiv.classList.add( "click-options" );
+
+        parsedLink = document.createElement( "A" );
+        // TODO add HREF
+        parsedLink.textContent = "Formatted"
+        parsedLink.href = "#/test";
+
+        originalLink = document.createElement( "A" );
+        originalLink.href = current.url;
+        originalLink.textContent = "Original";
+        originalLink.setAttribute( "target", "_blank" );
+
+        clickOptionsDiv.appendChild( parsedLink );
+        clickOptionsDiv.appendChild( originalLink );
 
         result = document.createElement( "LI" );
         result.classList.add( "result" );
@@ -122,6 +140,7 @@ function updateResults( res ) {
         resultmeta.appendChild( resultrating );
         resultmeta.appendChild( resultrates );
         result.appendChild( resultmeta );
+        result.appendChild( clickOptionsDiv );
 
         results.appendChild( result );
     }
