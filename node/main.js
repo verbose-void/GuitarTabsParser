@@ -37,6 +37,17 @@ http.createServer( function( request, response ) {
 		} else {
 			response.end();
 		}
+	} else if ( formatted.type.toLowerCase() === "parse" ) {
+		let args = formatted.args;
+
+		if ( args && args.artist && args.song_identifier ) {
+			scraper.getSong( "https://tabs.ultimate-guitar.com/tab/" + formatTabLink( args.artist ) + "/" + formatTabLink( args.song_identifier ), function( song ) {
+				response.write( JSON.stringify( song.parsed_tabs ) );
+				response.end();
+			} );
+		} else {
+			response.end();
+		}
 	} else {
 		response.end();
 	}

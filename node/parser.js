@@ -27,7 +27,6 @@ function parse( content ) {
 			throw new Error( "Section name cannot be \'" + sec + "\'." );
 		}
 
-		console.log()
 		output.sections[sec] = parseSection( sec, content );
 	}
 

@@ -107,9 +107,9 @@ function updateResults( res ) {
         clickOptionsDiv.classList.add( "click-options" );
 
         parsedLink = document.createElement( "A" );
-        parsedLink.textContent = "Formatted"
+        parsedLink.textContent = "Formatted";
         // TODO add HREF
-        // parsedLink.href = current.url.replace( "https://tabs.ultimate-guitar.com/", "" );
+        parsedLink.href = "formatted.html" + current.url.replace( "https://tabs.ultimate-guitar.com", "" );
 
         originalLink = document.createElement( "A" );
         originalLink.href = current.url;
