@@ -109,7 +109,8 @@ function updateResults( res ) {
         parsedLink = document.createElement( "A" );
         // TODO add HREF
         parsedLink.textContent = "Formatted"
-        parsedLink.href = "#/test";
+        console.log( current );
+        parsedLink.href = current.url.replace( "https://tabs.ultimate-guitar.com", "" );
 
         originalLink = document.createElement( "A" );
         originalLink.href = current.url;
