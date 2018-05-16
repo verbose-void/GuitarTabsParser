@@ -8,6 +8,52 @@
 	text-align: center;
 }
 
+.click-options {
+	opacity: 0;
+	transition: 0.5s linear;
+	position: absolute;
+	margin-top: -63px;
+	margin-left: calc( 50vw - 217px ); /* center horizontally */
+	display: none;
+}
+
+.click-options.show {
+	display: block;
+	opacity: 1;
+}
+
+button.click-option {
+    font-family : inherit;
+	margin-left: 20px;
+	width: 170px;
+	height: 50px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: white;
+    color: black;
+    border: 2px solid grey;
+    border-radius: 4px;
+    opacity: 0.7;
+    background-color: grey;
+    color: white;
+  	box-shadow: 0 9px #999;
+}
+
+button.click-option:hover {
+	opacity: 0.5;
+}
+
+button.click-option:active {
+	box-shadow: 0 5px #666;
+	transform: translateY(4px);
+	transition: 0.05s;
+	opacity: 1;
+}
+
+button.click-option:focus {
+	outline:0;
+}
+
 .result {
 	overflow: hidden;
 	transition: 0.2s linear;
