@@ -73,7 +73,12 @@ function parseSection( section, content ) {
 
 					for ( let j = i; j <= i + 6; j++ ) {
 						let innerLine = inner[j];
-						let character = innerLine[c];
+						let character;
+						if ( innerLine && innerLine.length > c ) {
+							character = innerLine[c];
+						} else {
+							character = "-";
+						}
 
 						if ( character !== "|" ) {
 							hasStarted = true;
