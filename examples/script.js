@@ -14,7 +14,6 @@ function onResultsClick( e ) {
         onResultsClick( { target: clicked.parentElement } );
         return;
     }
-
     selectResult( clicked );
 }
 
@@ -23,12 +22,14 @@ function selectResult( selection ) {
     currentSelection = selection;
     selection.children[0].classList.add( "hide" );
     selection.children[1].classList.add( "hide" );
+    selection.children[2].classList.add( "show" );
 }
 
 function deselectResult( selection ) {
     if ( selection ) {
         selection.children[0].classList.remove( "hide" );
         selection.children[1].classList.remove( "hide" );
+        selection.children[2].classList.remove( "show" );
     }
 }
 
@@ -107,16 +108,20 @@ function updateResults( res ) {
         clickOptionsDiv = document.createElement( "DIV" );
         clickOptionsDiv.classList.add( "click-options" );
 
-        parsedLink = document.createElement( "A" );
+        parsedLink = document.createElement( "BUTTON" );
         parsedLink.textContent = "Formatted";
-        // TODO add HREF
         searchData = current.url.replace( "https://tabs.ultimate-guitar.com/tab/", "" ).split( "/" );
-        parsedLink.href = "formatted.html#parse?artist=" + searchData[0] + "&song_identifier=" + searchData[1];
+        parsedLink.classList.add( "click-option" );
+        parsedLink.onclick = function() {
+            window.location.href = "formatted.html#parse?artist=" + searchData[0] + "&song_identifier=" + searchData[1];
+        };
 
-        originalLink = document.createElement( "A" );
-        originalLink.href = current.url;
+        originalLink = document.createElement( "BUTTON" );
         originalLink.textContent = "Original";
-        originalLink.setAttribute( "target", "_blank" );
+        originalLink.classList.add( "click-option" );
+        originalLink.onclick = function () {
+            window.open( current.url, '_blank' );
+        };
 
         clickOptionsDiv.appendChild( parsedLink );
         clickOptionsDiv.appendChild( originalLink );
