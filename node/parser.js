@@ -19,6 +19,7 @@ function parse( content ) {
 
 	output.order = getOrder( content );
 	output.sections = {};
+	let count = 0;
 
 	for ( let i in output.order ) {
 		let sec = output.order[i];
@@ -28,19 +29,28 @@ function parse( content ) {
 		}
 
 		output.sections[sec] = parseSection( sec, content );
+		count++;
 	}
+
+	output.all_measures = parseSection( 0, content );
 
 	return output;
 }
 
-function parseSection( section, content ) {
-	let re = new RegExp( "\\[" + section + "\\].*([^\\0]*?)(?:\\[|\\*{36})", "i" );
-	let temp = re.exec( content );
-	if ( !temp ) {
-		return;
-	}
-	let inner = temp[1];
+function parseSection( section, content, endLine ) {
+	let temp;
 
+	if ( typeof section != typeof 5 ) {
+		let re = new RegExp( "\\[" + section + "\\].*([^\\0]*?)(?:\\[|\\*{36})", "i" );
+		temp = re.exec( content );
+		if ( !temp ) {
+			return;
+		}
+	} else {
+		content = content.slice( section, endLine ? ( typeof endLine == typeof 5 ? endLine : content.length ) : content.length );
+	}
+
+	let inner = temp ? temp[1] : content;
 	inner = inner.split( "\n" );
 
 	let measures = [];
